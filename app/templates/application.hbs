@@ -1,5 +1,52 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<style>
+    main {
+        height: 400px;
+    }
 
-{{outlet}}
+    table {
+        border-collapse: collapse;
+    }
+    td, th {
+        border:  1px solid;
+        padding: 10px;
+        min-width: 200px;
+        background: white;
+        box-sizing: border-box;
+        text-align: left
+    }
+    table thead tr th:nth-of-type(n),
+    table tfoot tr th:nth-of-type(n) {
+        background-color: #dedede;
+    }
+
+    article {
+        position: relative;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 100%; /* this is the height of the container which may be 0px if no height is declared on an ancestor container and it's the only item on the page.  */
+        min-height:100%; /* calculated based on space alloted. Will always have a default height of 0% because everything is position: absolute;  */
+        width: 1000px;
+    }
+    thead  {
+        position: absolute; 
+        top: 0;
+    }
+    tbody {
+        position: absolute;
+        transform: translatey(2.5em); /*needs to be determined at paint - value === tHeadHeight - */
+        overflow-x: hidden;
+        overflow-y: scroll; 
+        height: calc(100% - 2.5em); /* check this when content changes. Only measure height if less than X number of rows visible  - height: calc(100% - height of tFootHeight + tHeadHeight)  - only measure once on load, and again if header or footer changes.*/
+    }
+    div.ps__scrollbar-y-rail {
+        left: 0px !important;
+        transform: translateX(985px);
+    }
+</style>
+<main>
+    <article>
+        <div>
+            {{my-table records=records}}
+        </div>
+    </article>
+</main>
